@@ -1,23 +1,725 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fast HTML Template</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 2rem;
-      background: #f4f4f4;
-      color: #333;
-    }
-    h1 {
-      color: #007acc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundOn 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            position: relative;
+        }
+
+        /* Навігація */
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+        }
+
+        .navbar-left a {
+            color: #ffd700;
+            text-decoration: none;
+            margin-right: 50px;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        .navbar-left a:hover,
+        .navbar-left a:focus {
+            text-decoration: underline;
+            outline: none;
+        }
+
+        .navbar-right a {
+            margin-left: 15px;
+        }
+
+        .navbar-right img {
+            width: 24px;
+            vertical-align: middle;
+        }
+
+        /* Секція каруселі */
+        .carousel-wrapper {
+            position: relative;
+            max-width: 1200px;
+            margin: 20px auto 10px auto;
+            border: 4px solid #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 16 / 6;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+            filter: grayscale(100%);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 10px;
+        }
+
+        .carousel-controls button {
+            background: none;
+            border: none;
+            font-size: 50px;
+            cursor: pointer;
+            color: #000;
+            padding: 15px 20px;
+            font-weight: bold;
+            border-radius: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-controls button:first-child {
+            margin-left: -120px;
+        }
+
+        .carousel-controls button:last-child {
+            margin-right: -120px;
+        }
+
+        /* Контейнер для індикаторів */
+        .indicators-container {
+            max-width: 1200px;
+            margin: 0 auto 5px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Індикатори каруселі */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 10px 0;
+        }
+
+        .carousel-indicators div {
+            width: 30px;
+            height: 15px;
+            background-color: #D9D9D9;
+            border: none;
+            cursor: pointer;
+        }
+
+        .carousel-indicators .active {
+            background-color: #000000;
+        }
+
+       
+
+      
+      
+
+        /* Товста чорна лінія */
+        .divider {
+            width: 100%;
+            height: 20px;
+            background-color: #000;
+            margin-top: 10px;
+        }
+
+        /* Секція кнопок */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            align-items: center;
+            background-color: #F7F7F7;
+        }
+
+        .buttons a.button {
+            background-color: #FFCC00;
+            color: #000;
+            text-decoration: none;
+            padding: 10px 30px 10px 10px;
+            border: none;
+            font-weight: 950;
+            font-size: 26px;
+            text-transform: uppercase;
+            box-shadow: -7px 7px 0 #000;
+            transition: box-shadow 0.2s ease;
+            width: 240px;
+            text-align: left;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .buttons a.button:hover {
+            box-shadow: -5px 5px 0 #000;
+        }
+
+        .buttons a.or {
+            background: none;
+            color: #000;
+            text-decoration: none;
+            text-transform: lowercase;
+            font-weight: 900;
+            font-size: 18px;
+            padding: 15px 0;
+            border: none;
+            box-shadow: none;
+            -webkit-text-stroke: 0.5px #000;
+            position: relative;
+            top: 5px;
+        }
+
+        /* Товста жовта лінія */
+        .yellow-divider {
+            width: 100%;
+            height: 20px;
+            background-color: #FFCC00;
+            margin-top: 10px;
+        }
+
+        /* Секція карток гуртів */
+        .bands-section {
+            background-color: #000;
+            padding: 40px 0;
+            color: #fff;
+            position: relative;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .bands-section h1 {
+            font-size: 60px;
+            font-weight: 900;
+            background-color: #FFCC00;
+            padding: 10px 30px;
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .band-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 60px 0 20px 0;
+        }
+
+        .band-card {
+            background-color: #000;
+            border: 3px solid #fff;
+            width: 280px;
+            padding: 10px;
+            text-align: center;
+            color: #000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .band-card:hover {
+            transform: scale(1.05);
+        }
+
+        .band-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 3px solid #fff;
+        }
+
+        .band-card h3 {
+            font-size: 22px;
+            margin-top: 10px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .band-card p {
+            font-size: 16px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Медіа-запити для адаптивності */
+        @media (max-width: 1200px) {
+            .carousel-wrapper {
+                margin: 15px auto 8px auto;
+            }
+
+            .carousel-controls button:first-child {
+                margin-left: -100px;
+            }
+
+            .carousel-controls button:last-child {
+                margin-right: -100px;
+            }
+
+            .carousel-controls button {
+                font-size: 40px;
+                padding: 10px 15px;
+            }
+
+            .festival-info {
+                bottom: -40px; /* Змінено з 40px на -40px */
+                right: 0;
+                width: 350px;
+                height: 140px;
+                padding: 8px 15px;
+            }
+
+            .festival-info h1 {
+                font-size: 32px;
+            }
+
+            .festival-info p {
+                font-size: 12px;
+                margin-bottom: 6px;
+            }
+
+            .festival-info .date {
+                font-size: 11px;
+            }
+
+            .cross {
+                top: -20px;
+                left: -20px;
+                width: 40px;
+                height: 40px;
+                font-size: 32px;
+                -webkit-text-stroke: 0.4px #000;
+            }
+
+            .navbar-left a {
+                font-size: 14px;
+                margin-right: 40px;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .divider {
+                margin-top: 8px;
+                height: 18px;
+            }
+
+            .yellow-divider {
+                height: 18px;
+                margin-top: 8px;
+            }
+
+            .bands-section {
+                padding: 30px 0;
+                margin-top: 25px;
+            }
+
+            .bands-section h1 {
+                font-size: 52px;
+                padding: 8px 25px;
+            }
+
+            .band-cards {
+                gap: 25px;
+                padding: 50px 0 15px 0;
+            }
+
+            .band-card {
+                width: 250px;
+                padding: 8px;
+            }
+
+            .band-card img {
+                height: 220px;
+            }
+
+            .band-card h3 {
+                font-size: 20px;
+                margin-top: 8px;
+            }
+
+            .band-card p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-wrapper {
+                margin: 10px auto 5px auto;
+            }
+
+            .carousel {
+                aspect-ratio: 16 / 7;
+            }
+
+            .carousel-controls button:first-child {
+                margin-left: -80px;
+            }
+
+            .carousel-controls button:last-child {
+                margin-right: -80px;
+            }
+
+            .carousel-controls button {
+                font-size: 30px;
+                padding: 8px 12px;
+            }
+
+          
+            .buttons a.button {
+                padding: 8px 20px 8px 8px;
+                font-size: 18px;
+                width: 200px;
+                box-shadow: -5px 5px 0 #000;
+            }
+
+            .buttons a.button:hover {
+                box-shadow: -3px 3px 0 #000;
+            }
+
+            .buttons a.or {
+                font-size: 16px;
+            }
+
+            .navbar-left a {
+                font-size: 12px;
+                margin-right: 30px;
+            }
+
+            .navbar {
+                padding: 10px 20px;
+            }
+
+            .divider {
+                margin-top: 5px;
+                height: 15px;
+            }
+
+            .yellow-divider {
+                height: 15px;
+                margin-top: 5px;
+            }
+
+            .bands-section {
+                padding: 20px 0;
+                margin-top: 20px;
+            }
+
+            .bands-section h1 {
+                font-size: 44px;
+                padding: 6px 20px;
+            }
+
+            .band-cards {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 40px 0 10px 0;
+            }
+
+            .band-card {
+                width: 220px;
+                padding: 6px;
+            }
+
+            .band-card img {
+                height: 200px;
+            }
+
+            .band-card h3 {
+                font-size: 18px;
+                margin-top: 6px;
+            }
+
+            .band-card p {
+                font-size: 12px;
+            }
+        }
+    </style>
+    <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This is a fast and minimal HTML5 template.</p>
+    <!-- Навігація -->
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="#">O NAS</a>
+            <a href="#">PARTNERZY</a>
+            <a href="#">ARTYŚCI</a>
+            <a href="#">FAQ</a>
+        </div>
+        <div class="navbar-right">
+            <a href="#"><img src="images/youtube-icon.png" alt="YouTube"></a>
+            <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="images/spotify-icon.png" alt="Spotify"></a>
+        </div>
+    </div>
+
+    <!-- Секція каруселі -->
+    <div class="carousel-wrapper">
+        <div class="carousel-controls">
+            <button onclick="prevSlide()" aria-label="Previous Slide">❮</button>
+            <button onclick="nextSlide()" aria-label="Next Slide">❯</button>
+        </div>
+        <div class="carousel">
+            <div class="carousel-images">
+                <img src="images/pic_hero_page.png" alt="Festival Image 1">
+                <img src="images/image2.jpg" alt="Festival Image 2">
+                <img src="images/image3.jpg" alt="Festival Image 3">
+            </div>
+            
+           </div>
+
+   
+</div>
+
+        </div>
+    </div>
+
+    <!-- Індикатори каруселі (поза слайдером) -->
+    <div class="indicators-container">
+        <div class="carousel-indicators">
+            <div class="active" onclick="goToSlide(0)" role="button" tabindex="0"></div>
+            <div onclick="goToSlide(1)" role="button" tabindex="0"></div>
+            <div onclick="goToSlide(2)" role="button" tabindex="0"></div>
+        </div>
+    </div>
+
+    
+    <!-- Товста чорна лінія -->
+    <div class="divider"></div>
+
+    <!-- Кнопки -->
+    <div class="buttons">
+        <a href="#" class="button">KUP<br>BILET</a>
+        <a href="#" class="or">lub</a>
+        <a href="#" class="button">ZGŁOŚ<br>ZESPÓŁ</a>
+    </div>
+
+    <!-- Товста жовта лінія -->
+    <div class="yellow-divider"></div>
+<!-- NASZE ZESPOŁY -->
+<div style="background-color: #000; padding: 30px 0 60px 0;">
+    <div style="max-width: 1800px; margin: 0 auto; padding: 0 20px;">
+        <h1 style="font-size: 64px; font-weight: 900; background-color: #FFD700; color: #000; display: inline-block; padding: 8px 40px; margin-bottom: 30px; line-height: 1;">
+            NASZE ZESPOŁY
+        </h1>
+
+        <div style="display: flex; justify-content: flex-start; gap: 40px; flex-wrap: wrap;">
+           <!-- Картка 1 -->
+<div style="text-align: center; margin-left: 40px;">
+    <img src="C:\Users\olya2\OneDrive\Робочий стіл\images\zaspol1.jpg" alt="Neon Jungle" style="width: 380px; height: 260px; object-fit: cover; border: 3px solid #fff;" />
+    <h3 style="color: white; font-size: 20px; margin-top: 10px;">NEON JUNGLE</h3>
+    <p style="color: white; font-size: 14px;">Indie / Rock Alternatywny</p>
+</div>
+
+
+            <!-- Картка 2 -->
+            <div style="text-align: center;">
+                <img src="C:\Users\olya2\CLionProjects\new\images\zespol2.jpg" alt="Velvet Riot" style="width: 380px; height: 260px; object-fit: cover; border: 3px solid #fff;" />
+                <h3 style="color: white; font-size: 20px; margin-top: 10px;">Velvet Riot</h3>
+                <p style="color: white; font-size: 14px;">Alternative Pop / Darkwave</p>
+            </div>
+
+            <!-- Картка 3 -->
+            <div style="text-align: center;">
+                <img src="C:\Users\olya2\CLionProjects\new\images\zespol3.jpg" alt="The Dazed" style="width: 380px; height: 260px; object-fit: cover; border: 3px solid #fff;" />
+                <h3 style="color: white; font-size: 20px; margin-top: 10px;">The Dazed</h3>
+                <p style="color: white; font-size: 14px;">Garage Rock</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Sekcja Dołącz zespół -->
+<section style="background-color: #000; font-family: Impact, Arial Black, sans-serif;">
+
+    <!-- Білий смужковий заголовок -->
+    <div style="background-color: #fff; padding: 8px 35px;">
+        <h2 style="margin: 0; font-size: 35px; font-weight: 900; text-transform: uppercase; color: #000; letter-spacing: -1px; line-height: 1.5;">
+            MASZ ZESPÓŁ? CHCESZ WYSTĄPIĆ? ZGŁOŚ SIĘ JUŻ DZIŚ I ZAWALCZ O
+        </h2>
+    </div>
+    <!-- Жовтий заголовок -->
+    <div style="background-color: #FFD700; padding: 8px 35px;">
+        <h2 style="margin: 0; font-size: 35px; font-weight: 900; text-transform: uppercase; color: #000; line-height: 1.5;">
+            SCENĘ MARZEŃ!
+        </h2>
+    </div>
+    <!-- Жовтий блок DOŁĄCZ DO NAS-->
+   
+<div style="margin: 80px 0 30px 0; text-align: left; padding-left: 35px;">
+    <span style="
+        background-color: #FFD700;
+        color: #000;
+        font-size: 68px;
+        font-weight: 900;
+        padding: 3px 10px;
+        display: inline-block;
+        letter-spacing: -1px;
+        transform: scaleX(1.1);">
+        DOŁĄCZ DO NAS!
+    </span>
+</div>
+
+
+    <!-- Нижній блок: текст зліва + фото справа -->
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding: 0 20px 60px; align-items: stretch;">
+        
+        <!-- Лівий текст -->
+        <div style="flex: 1 1 50%; background-color: #fff; display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="padding: 24px;">
+                <p style="font-size: 24px; font-weight: 900; line-height: 1.45; margin: 0;">
+                    JESTEŚMY EKIPĄ, KTÓRA KOCHA MUZYKĘ I MŁODZIEŃCZĄ ENERGIĘ. TWORZYMY PRZESTRZEŃ DLA MŁODYCH ARTYSTÓW, KTÓRZY CHCĄ POKAZAĆ SWÓJ TALENT NA DUŻEJ SCENIE. NIEWAŻNE, CZY GRASZ SOLO, W DUECIE CZY W ZESPOLE – U NAS KAŻDY MA SZANSĘ ZABŁYSNĄĆ.
+                </p>
+            </div>
+            <div style="height: 36px; background-color: #FFD700; width: 100%;"></div>
+        </div>
+
+        <!-- Фото -->
+        <div style="flex: 1 1 45%; display: flex; justify-content: center; align-items: center;">
+            <img src="images/jump-crowd.jpg" alt="Crowd Jump" style="width: 100%; max-width: 600px; border: 5px solid #fff;" />
+        </div>
+    </div>
+</section>
+<!-- Декоративні смужки: біла + жовта -->
+<div style="width: 100%;">
+
+    <!-- Біла смуга -->
+    <div style="background-color: #fff; height: 45px;"></div>
+
+    <!-- Жовта смуга -->
+    <div style="background-color: #FFD700; height: 45px;"></div>
+
+</div>
+<!-- 📸 Фото гурту на всю ширину -->
+
+<div style="width: 100%;">
+    <img src="C:\Users\olya2\CLionProjects\new\images\pic_for_stayconected_section.png" alt="Band Crowd" style="
+        width: 100%;
+        height: 550px;          /* 👈 Зменшена висота */
+        object-fit: cover;
+        display: block;">
+</div>
+
+
+<!-- 🖤 Email + Stay Connected блок -->
+<section style="
+    background-color: #000;
+    width: 100%;
+    padding: 5px 5%;
+    font-family: Arial Black, Impact, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+">
+
+    <!-- Email input + кнопка -->
+    <div style="display: flex; gap: 15px; flex: 1 1 600px; max-width: 600px;">
+        <input type="email" placeholder="Enter your email" style="
+            flex: 1;
+            padding: 14px 20px;
+            font-size: 18px;
+            border: 2px solid #fff;
+            background-color: #000;
+            color: #fff;
+            outline: none;
+        ">
+        <button style="
+            padding: 14px 30px;
+            background-color: #000;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        ">Sign up</button>
+    </div>
+
+    <!-- STAY CONNECTED -->
+    <div style="flex: 1 1 300px; text-align: right; margin-top: 20px;">
+        <h2 style="font-size: 48px; font-weight: 900; margin: 0;">STAY CONNECTED</h2>
+    </div>
+</section>
+<!-- 🔶 Жовта жирна лінія -->
+<div style="width: 100%; height: 40px; background-color: #FFD700;"></div>
+
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-images img');
+        const indicators = document.querySelectorAll('.carousel-indicators div');
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            const carouselImages = document.querySelector('.carousel-images');
+            carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        window.addEventListener('resize', () => {
+            const carouselImages = document.querySelector('.carousel-images');
+            carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+        });
+
+        // Автоматична зміна слайдів кожні 5 секунд
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
 </html>
